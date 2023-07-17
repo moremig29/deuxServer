@@ -33,7 +33,7 @@ const crearPaypal = async ( req, resp = response ) => {
 
 const verPaypals = async ( req, resp = response ) => {
 
-  const dbPaypals = await Paypal.find();
+  const dbPaypals = await Paypal.find().sort({fecha: -1}).limit(10);
 
   try {
 
