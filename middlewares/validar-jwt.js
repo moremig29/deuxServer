@@ -28,7 +28,6 @@ const validarJWT = ( req, res = response, next ) => {
     });
   }
 
-
   // ok
   next();
 }
