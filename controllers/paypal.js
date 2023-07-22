@@ -96,7 +96,7 @@ const editarPaypal = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'editada',
+      msg: 'Editado satisfactoriamente',
       paypal: paypalActualizado
     });
     
@@ -104,7 +104,7 @@ const editarPaypal = async ( req, resp = response ) => {
 
     return resp.status(500).json({
       ok: false,
-      msg: 'No se puede mostrar'
+      msg: 'No se pudo actualizar'
     });
 
   }
@@ -115,7 +115,6 @@ const borrarPaypal = async ( req, resp = response ) => {
   const id = req.params.id;
 
   try {
-
     const dbPaypalEliminado = await Paypal.findByIdAndDelete( id );
 
     // generar response
@@ -129,9 +128,8 @@ const borrarPaypal = async ( req, resp = response ) => {
 
     return resp.status(500).json({
       ok: false,
-      msg: 'No se puede mostrar'
+      msg: 'No se pudo eliminar'
     });
-
   }
 }
 
