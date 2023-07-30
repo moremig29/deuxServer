@@ -1,16 +1,18 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { crearGasto, verGastos, verGasto, editarGasto, borrarGasto } = require('../controllers/gastos');
+const { crearGasto, verGastos, verGasto, editarGasto, borrarGasto, totalGasto } = require('../controllers/gastos');
 const { validarCampos } = require('../middlewares/validar-campos');
+const { validarJWT } = require('../middlewares/validar-jwt');
 
 const router = Router();
 
 
 // read all
-router.get( '/', verGastos )
+router.get( '/', validarJWT,verGastos )
 
 // Create
 router.post( '/crearGasto',[
+  validarJWT,
   check( 'descripcion', 'La descripcion es obligatoria' ).not().isEmpty(),
   check( 'monto', 'El monto es obligatorio' ).not().isEmpty(),
   check( 'fecha', 'La fecha es obligatoria' ).not().isEmpty(),
@@ -20,12 +22,14 @@ router.post( '/crearGasto',[
 
 // read One
 router.post( '/verGasto',[
+  validarJWT,
   check( 'id', 'El id es obligatorio' ).not().isEmpty(),
   validarCampos
 ], verGasto );
 
 // update
 router.post( '/:id',[
+  validarJWT,
   check( 'descripcion', 'La descripcion es obligatoria' ).not().isEmpty(),
   check( 'monto', 'El monto es obligatorio' ).not().isEmpty(),
   check( 'fecha', 'La fecha es obligatoria' ).not().isEmpty(),
@@ -35,8 +39,12 @@ router.post( '/:id',[
 
 // delete
 router.delete( '/:id',[
+  validarJWT,
   check( 'id', 'El id es obligatorio' ).not().isEmpty(),
   validarCampos
 ], borrarGasto );
+
+// total gastos
+router.get( '/totalGasto', validarJWT, totalGasto )
 
 module.exports = router;

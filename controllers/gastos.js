@@ -135,10 +135,42 @@ const borrarGasto = async ( req, resp = response ) => {
   }
 }
 
+const totalGasto = async ( req, resp = response ) => {
+
+  const dbGastos = await Gasto.find();
+  
+  let totalGastos = 0;
+
+  dbGastos.forEach( element => {
+    
+    totalGastos += Number(element.ammount);
+
+  });
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      totalGastos
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo procesar'
+    });
+
+  }
+
+}
+
 module.exports = {
   crearGasto,
   verGastos,
   verGasto,
   editarGasto,
-  borrarGasto
+  borrarGasto,
+  totalGasto
 }

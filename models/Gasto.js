@@ -2,19 +2,19 @@ const { Schema, model } = require("mongoose");
 
 
 const GastoSchema = Schema({
-  descripcion: {
+  description: {
     type: String,
     required: true
   },
-  monto: {
+  ammount: {
     type: String,
     required: true,
   },
-  tipo: {
+  type: {
     type: Number,
     required: true
   },
-  fecha:{
+  date:{
     type: Date,
   }
 });
