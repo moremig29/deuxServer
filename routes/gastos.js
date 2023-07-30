@@ -13,10 +13,10 @@ router.get( '/', validarJWT,verGastos )
 // Create
 router.post( '/crearGasto',[
   validarJWT,
-  check( 'descripcion', 'La descripcion es obligatoria' ).not().isEmpty(),
-  check( 'monto', 'El monto es obligatorio' ).not().isEmpty(),
-  check( 'fecha', 'La fecha es obligatoria' ).not().isEmpty(),
-  check( 'tipo', 'El estatus es obligatorio' ).not().isEmpty(),
+  check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
+  check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),
+  check( 'date', 'La fecha es obligatoria' ).not().isEmpty(),
+  check( 'type', 'El estatus es obligatorio' ).not().isEmpty(),
   validarCampos
 ], crearGasto );
 
@@ -30,10 +30,10 @@ router.post( '/verGasto',[
 // update
 router.post( '/:id',[
   validarJWT,
-  check( 'descripcion', 'La descripcion es obligatoria' ).not().isEmpty(),
-  check( 'monto', 'El monto es obligatorio' ).not().isEmpty(),
-  check( 'fecha', 'La fecha es obligatoria' ).not().isEmpty(),
-  check( 'tipo', 'El estatus es obligatorio' ).not().isEmpty(),
+  check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
+  check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),
+  check( 'date', 'La fecha es obligatoria' ).not().isEmpty(),
+  check( 'type', 'El estatus es obligatorio' ).not().isEmpty(),
   validarCampos
 ], editarGasto );
 

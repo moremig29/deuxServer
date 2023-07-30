@@ -7,7 +7,7 @@ const GastoSchema = Schema({
     required: true
   },
   ammount: {
-    type: String,
+    type: Number,
     required: true,
   },
   type: {

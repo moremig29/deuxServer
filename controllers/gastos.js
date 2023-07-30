@@ -140,10 +140,18 @@ const totalGasto = async ( req, resp = response ) => {
   const dbGastos = await Gasto.find();
   
   let totalGastos = 0;
+  let ingreso = 0
 
   dbGastos.forEach( element => {
     
-    totalGastos += Number(element.ammount);
+    if( element.type === 8 ) {
+
+      ingreso += element.ammount
+    } else {
+
+      totalGastos += Number(element.ammount);
+    }
+
 
   });
 
@@ -152,7 +160,8 @@ const totalGasto = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      totalGastos
+      totalGastos,
+      ingreso
     });
     
   } catch (error) {
