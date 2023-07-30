@@ -2,7 +2,7 @@ const { response } = require('express');
 const Compra = require('../models/Compra');
 
 
-// crear usuario
+// registrar compra
 const crearCompra = async ( req, resp = response ) => {
 
   const { ammount, name, date, note, status } = req.body;
@@ -31,7 +31,7 @@ const crearCompra = async ( req, resp = response ) => {
   }
 
 }
-
+// ver todas las compras registradas
 const verCompras = async ( req, resp = response ) => {
 
   const dbCompras = await Compra.find();
@@ -54,7 +54,7 @@ const verCompras = async ( req, resp = response ) => {
 
   }
 }
-
+// ver una compra
 const verCompra = async ( req, resp = response ) => {
 
   const { id } = req.body;
@@ -81,7 +81,7 @@ const verCompra = async ( req, resp = response ) => {
 
 
 }
-
+// editar una compra
 const editarCompra = async ( req, resp = response ) => {
 
   const compra = new Compra( req.body );
@@ -106,7 +106,7 @@ const editarCompra = async ( req, resp = response ) => {
 
   }
 }
-
+// borrar una compra
 const borrarCompra = async ( req, resp = response ) => {
 
   const { id } = req.body;
@@ -131,11 +131,43 @@ const borrarCompra = async ( req, resp = response ) => {
 
   }
 }
+// mostrar la suma total de las compras
+const totalCompra = async ( req, resp = response ) => {
+
+  const dbCompras = await Compra.find();
+  
+  let totalCompras = 0;
+
+  dbCompras.forEach( element => {
+    
+    totalCompras += Number(element.ammount);
+
+  });
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      totalCompras
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo procesar'
+    });
+
+  }
+
+}
 
 module.exports = {
   crearCompra,
   verCompra,
   verCompras,
   editarCompra,
-  borrarCompra
+  borrarCompra,
+  totalCompra
 }
