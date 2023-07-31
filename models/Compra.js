@@ -20,6 +20,10 @@ const CompraSchema = Schema({
   status:{
     type: Boolean,
     required: true
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
   }
 });
 

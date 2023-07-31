@@ -1,7 +1,6 @@
 const { response } = require('express');
 const Compra = require('../models/Compra');
 
-
 // registrar compra
 const crearCompra = async ( req, resp = response ) => {
 
@@ -34,7 +33,8 @@ const crearCompra = async ( req, resp = response ) => {
 // ver todas las compras registradas
 const verCompras = async ( req, resp = response ) => {
 
-  const dbCompras = await Compra.find();
+  const uid = req.uid;
+  const dbCompras = await Compra.find({ usuario: uid });
 
   try {
 

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
-const { crearPaypal, verPaypals, verPaypal, editarPaypal, borrarPaypal, verTotalPaypals } = require('../controllers/paypal');
+const { crearPaypal, verPaypals, verPaypal, editarPaypal, borrarPaypal, verTotalPaypals, actualizarMasivo } = require('../controllers/paypal');
 
 const router = Router();
 
@@ -42,6 +42,10 @@ router.delete( '/:id',[
 ], borrarPaypal );
 
 //obtener total guardado
-router.get( '/verTotalPaypals', validarJWT, verTotalPaypals)
+router.get( '/verTotalPaypals', validarJWT, verTotalPaypals);
+
+//actualizar masivo
+//router.get('/actualizarMasivo', validarJWT, actualizarMasivo);
+
 
 module.exports = router;

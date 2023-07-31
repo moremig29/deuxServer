@@ -16,6 +16,10 @@ const PaypalSchema = Schema({
   tipo: {
     type: Number,
     required: true
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
   }
 });
 

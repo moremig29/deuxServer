@@ -4,12 +4,15 @@ const Paypal = require('../models/Paypal');
 // crear usuario
 const crearPaypal = async ( req, resp = response ) => {
 
-  const { descripcion, monto, fecha } = req.body;
-
   try {
 
+    const uid = req.uid;
+    const body = req.body;
+
     // crear usuario con el modelo
-    let dbPaypal = new Paypal( req.body );
+    let dbPaypal = new Paypal({
+      usuario: uid,
+      ...body });
 
     //crear usuario de db
     await dbPaypal.save();
@@ -33,14 +36,21 @@ const crearPaypal = async ( req, resp = response ) => {
 
 const verPaypals = async ( req, resp = response ) => {
 
-  const dbPaypals = await Paypal.find().sort({fecha: -1}).limit(10);
+  const uid = req.uid;
+
+  const [ dbPaypals, dbTotal ] = await Promise.all([
+    Paypal.find({ 'usuario': uid })
+          .sort({fecha: -1})
+          .limit(10),
+    Paypal.countDocuments()
+  ]);
 
   try {
 
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'listado de gastos',
+      dbTotal,
       Paypal: dbPaypals
     });
     
@@ -170,11 +180,33 @@ const verTotalPaypals = async ( req, resp = response ) => {
 
 }
 
+const actualizarMasivo = async (req, resp = response) => {
+
+  const uid = req.uid;
+  const paypalDb = await Paypal.find();
+
+  for await (const item of paypalDb ) {
+
+    let id = item.id;
+    item.usuario = uid;
+
+    const actualizado = await Paypal.findByIdAndUpdate(id, item, { new: true } );
+  }
+
+  return resp.status(201).json({
+    ok: true,
+    msg: 'actualizado',
+    paypalDb
+  })
+
+}
+
 module.exports = {
   crearPaypal,
   verPaypals,
   verPaypal,
   editarPaypal,
   borrarPaypal,
-  verTotalPaypals
+  verTotalPaypals,
+  actualizarMasivo
 }

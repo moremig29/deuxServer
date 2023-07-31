@@ -16,6 +16,10 @@ const GastoSchema = Schema({
   },
   date:{
     type: Date,
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
   }
 });
 

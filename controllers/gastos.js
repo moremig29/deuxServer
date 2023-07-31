@@ -33,7 +33,8 @@ const crearGasto = async ( req, resp = response ) => {
 
 const verGastos = async ( req, resp = response ) => {
 
-  const dbGastos = await Gasto.find();
+  const uid = req.uid;
+  const dbGastos = await Gasto.find({ usuario: uid });
 
   try {
 
