@@ -4,12 +4,15 @@ const Gasto = require('../models/Gasto');
 // crear usuario
 const crearGasto = async ( req, resp = response ) => {
 
-  const { descripcion, monto, fecha, tipo } = req.body;
+  const uid = req.uid;
 
   try {
 
     // crear usuario con el modelo
-    let dbGasto = new Gasto( req.body );
+    let dbGasto = new Gasto( {
+      usuario: uid,
+      ...req.body
+    } );
 
     //crear usuario de db
     await dbGasto.save();
@@ -34,7 +37,10 @@ const crearGasto = async ( req, resp = response ) => {
 const verGastos = async ( req, resp = response ) => {
 
   const uid = req.uid;
-  const dbGastos = await Gasto.find({ usuario: uid });
+  const dbGastos = await Gasto
+    .find({ usuario: uid })
+    .sort({ date: -1 })
+    .limit(10);
 
   try {
 

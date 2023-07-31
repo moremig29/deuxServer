@@ -4,12 +4,15 @@ const Compra = require('../models/Compra');
 // registrar compra
 const crearCompra = async ( req, resp = response ) => {
 
-  const { ammount, name, date, note, status } = req.body;
+  const uid = req.uid;
 
   try {
 
     // crear usuario con el modelo
-    dbCompra = new Compra( req.body );
+    dbCompra = new Compra( {
+      usuario: uid,
+      ...req.body
+    });
 
     //crear usuario de db
     await dbCompra.save();
