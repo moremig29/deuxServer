@@ -24,6 +24,7 @@ app.use( '/api/auth', require('./routes/auth') );
 app.use( '/api/compras', require('./routes/compras') );
 app.use( '/api/gastos', require('./routes/gastos') );
 app.use( '/api/paypal', require('./routes/paypal') );
+app.use( '/api/charts', require('./routes/charts') );
 
 app.listen( process.env.PORT, ( )=> {
   console.log( `Servidor corriendo en puerto ${ process.env.PORT }` );
