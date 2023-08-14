@@ -8,15 +8,15 @@ const router = Router();
 
 
 // read all
-router.get( '/', validarJWT, verCompras )
+router.get( '/', validarJWT, verCompras );
 
 // Create
 router.post( '/crearCompra',[
   validarJWT,
-  check( 'name', 'El nombre es obligatorio' ).not().isEmpty(),
+  check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
   check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),
   check( 'date', 'La fecha es obligatoria' ).not().isEmpty(),
-  check( 'status', 'El estatus es obligatorio' ).not().isEmpty(),
+  check( 'type', 'El estatus es obligatorio' ).not().isEmpty(),
   validarCampos
 ], crearCompra );
 
@@ -28,20 +28,23 @@ router.post( '/verCompra',[
 ], verCompra );
 
 // update
-router.post( '/actualizarCompra',[
+router.post( '/:id',[
   validarJWT,
-  check( 'id', 'El id es obligatorio' ).not().isEmpty(),
+  check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
+  check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),
+  check( 'date', 'La fecha es obligatoria' ).not().isEmpty(),
+  check( 'type', 'El estatus es obligatorio' ).not().isEmpty(),
   validarCampos
 ], editarCompra );
 
 // delete
-router.post( '/eliminarCompra',[
+router.delete( '/:id',[
   validarJWT,
   check( 'id', 'El id es obligatorio' ).not().isEmpty(),
   validarCampos
 ], borrarCompra );
 
-// suma total
-router.get( '/totalCompra', validarJWT, totalCompra );
+// total gastos
+router.get( '/totalGasto', validarJWT, totalCompra )
 
 module.exports = router;
