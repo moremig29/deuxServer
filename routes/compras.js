@@ -11,7 +11,7 @@ const router = Router();
 router.get( '/', validarJWT, verCompras );
 
 // Create
-router.post( '/crearCompra',[
+router.post( '/',[
   validarJWT,
   check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
   check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),

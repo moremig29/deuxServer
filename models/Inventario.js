@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 
-const CompraSchema = Schema({
+const InventarioSchema = Schema({
   producto: {
     type: String,
     required: true
@@ -13,17 +13,17 @@ const CompraSchema = Schema({
   precio:{
     type: Number,
   },
-  fecha: {
+  fechaCompra: {
     type: Date,
     required: true
   }
 },
   { timestamps: true });
 
-CompraSchema.method('toJSON', function() {
+InventarioSchema.method('toJSON', function() {
   const { _id, __v, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
 
-module.exports =  model('Compra', CompraSchema);
+module.exports =  model('Inventario', InventarioSchema);

@@ -1,17 +1,22 @@
 const { Schema, model } = require("mongoose");
 
 
-const CompraSchema = Schema({
-  producto: {
+const CuentaSchema = Schema({
+  desc: {
     type: String,
     required: true
   },
-  cantidad: {
+  monto: {
     type: Number,
     required: true,
   },
-  precio:{
-    type: Number,
+  tipoTransac:{
+    type: Schema.Types.ObjectId,
+    ref: 'TipoTransac'
+  },
+  tipoCuenta: {
+    type: Schema.Types.ObjectId,
+    ref: 'TipoCuenta'
   },
   fecha: {
     type: Date,
@@ -20,10 +25,10 @@ const CompraSchema = Schema({
 },
   { timestamps: true });
 
-CompraSchema.method('toJSON', function() {
+CuentaSchema.method('toJSON', function() {
   const { _id, __v, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
 
-module.exports =  model('Compra', CompraSchema);
+module.exports =  model('Cuenta', CuentaSchema);

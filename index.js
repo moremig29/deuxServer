@@ -22,6 +22,11 @@ app.use( express.json() );
 //routes
 app.use( '/api/auth', require('./routes/auth') );
 app.use( '/api/compras', require('./routes/compras') );
+app.use( '/api/estatus', require('./routes/estatus') );
+app.use( '/api/moneda', require('./routes/moneda') );
+app.use( '/api/tipoTransac', require('./routes/tipoTransac') );
+app.use( '/api/tipoCuenta', require('./routes/tipoCuenta') );
+app.use( '/api/tipoCambio', require('./routes/tipoCambio') );
 
 app.listen( process.env.PORT, ( )=> {
   console.log( `Servidor corriendo en puerto ${ process.env.PORT }` );
