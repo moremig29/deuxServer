@@ -27,6 +27,8 @@ app.use( '/api/moneda', require('./routes/moneda') );
 app.use( '/api/tipoTransac', require('./routes/tipoTransac') );
 app.use( '/api/tipoCuenta', require('./routes/tipoCuenta') );
 app.use( '/api/tipoCambio', require('./routes/tipoCambio') );
+app.use( '/api/cliente', require('./routes/cliente') );
+app.use( '/api/cuenta', require('./routes/cuenta') );
 
 app.listen( process.env.PORT, ( )=> {
   console.log( `Servidor corriendo en puerto ${ process.env.PORT }` );
