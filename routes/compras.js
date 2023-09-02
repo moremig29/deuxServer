@@ -13,10 +13,10 @@ router.get( '/', validarJWT, verCompras );
 // Create
 router.post( '/',[
   validarJWT,
-  check( 'description', 'La descripcion es obligatoria' ).not().isEmpty(),
-  check( 'ammount', 'El monto es obligatorio' ).not().isEmpty(),
-  check( 'date', 'La fecha es obligatoria' ).not().isEmpty(),
-  check( 'type', 'El estatus es obligatorio' ).not().isEmpty(),
+  check( 'producto', 'La descripcion es obligatoria' ).not().isEmpty(),
+  check( 'cantidad', 'El estatus es obligatorio' ).not().isEmpty(),
+  check( 'precio', 'El monto es obligatorio' ).not().isEmpty(),
+  check( 'fecha', 'La fecha es obligatoria' ).not().isEmpty(),
   validarCampos
 ], crearCompra );
 

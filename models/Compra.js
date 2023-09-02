@@ -3,8 +3,8 @@ const { Schema, model } = require("mongoose");
 
 const CompraSchema = Schema({
   producto: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'Producto'
   },
   cantidad: {
     type: Number,

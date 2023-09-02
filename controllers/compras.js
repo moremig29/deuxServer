@@ -6,13 +6,12 @@ const crearCompra = async ( req, resp = response ) => {
 
   const uid = req.uid;
 
+  console.log( uid );
+
   try {
 
     // crear usuario con el modelo
-    dbCompra = new Compra( {
-      usuario: uid,
-      ...req.body
-    });
+    let dbCompra = new Compra(req.body);
 
     //crear usuario de db
     await dbCompra.save();
@@ -24,6 +23,8 @@ const crearCompra = async ( req, resp = response ) => {
     });
     
   } catch (error) {
+
+    console.log( error );
 
     return resp.status(500).json({
       ok: false,
@@ -37,7 +38,7 @@ const crearCompra = async ( req, resp = response ) => {
 const verCompras = async ( req, resp = response ) => {
 
   const uid = req.uid;
-  const dbCompras = await Compra.find({ usuario: uid });
+  const dbCompras = await Compra.find().populate('producto','desc');
 
   try {
 
