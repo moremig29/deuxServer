@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { crearCompra, verCompra, verCompras, editarCompra, borrarCompra, totalCompra } = require('../controllers/compras');
+const { crearCompra, verCompra, verCompras, editarCompra, borrarCompra, totalCompra } = require('../controllers/compra');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 

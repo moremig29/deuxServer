@@ -3,7 +3,6 @@ const cors = require('cors');
 const { dbConnection } = require('./db/config');
 require('dotenv').config();
 
-
 // crear el server/app de express
 const app = express();
 
@@ -27,9 +26,10 @@ app.use( '/api/tipoTransac', require('./routes/tipoTransac') );
 app.use( '/api/tipoCuenta', require('./routes/tipoCuenta') );
 app.use( '/api/tipoCambio', require('./routes/tipoCambio') );
 app.use( '/api/cuenta', require('./routes/cuenta') );
-app.use( '/api/compras', require('./routes/compras') );
+app.use( '/api/compra', require('./routes/compra') );
 app.use( '/api/cliente', require('./routes/cliente') );
-app.use( '/api/productos', require('./routes/producto') );
+app.use( '/api/producto', require('./routes/producto') );
+app.use( '/api/insumo', require('./routes/insumo') );
 
 app.listen( process.env.PORT, ( )=> {
   console.log( `Servidor corriendo en puerto ${ process.env.PORT }` );
