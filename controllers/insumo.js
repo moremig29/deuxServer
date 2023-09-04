@@ -1,7 +1,7 @@
 const { response } = require('express');
 const Insumo = require('../models/Insumo');
 
-// registrar compra
+// registrar insumo
 const crear = async ( req, resp = response ) => {
 
   const uid = req.uid;
@@ -35,12 +35,12 @@ const crear = async ( req, resp = response ) => {
 
 }
 
+// obtener todos los registros
 const getInsumo = async ( req, resp = response ) => {
 
-  const dbInsumo = await Insumo.find();
+  const dbInsumo = await Insumo.find().sort({desc: 1});
 
   try {
-
     // generar response
     return resp.status(201).json({
       ok: true,
