@@ -2,8 +2,20 @@ const { Schema, model } = require("mongoose");
 
 
 const ProductoSchema = Schema({
-  desc: {
+  nombre: {
     type: String,
+    required: true
+  },
+  insumos: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Insumo'
+  }],
+  costo_total: {
+    type: Number,
+    required: true
+  },
+  precio_venta: {
+    type: Number,
     required: true
   }
 },

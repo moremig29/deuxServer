@@ -37,7 +37,7 @@ const crear = async ( req, resp = response ) => {
 
 const getProductos = async ( req, resp = response ) => {
 
-  const dbProducto = await Producto.find();
+  const dbProducto = await Producto.find().populate('insumos');
 
   try {
 
