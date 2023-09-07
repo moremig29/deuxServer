@@ -30,6 +30,7 @@ app.use( '/api/compra', require('./routes/compra') );
 app.use( '/api/cliente', require('./routes/cliente') );
 app.use( '/api/producto', require('./routes/producto') );
 app.use( '/api/insumo', require('./routes/insumo') );
+app.use( '/api/chart', require('./routes/chart') );
 
 app.listen( process.env.PORT, ( )=> {
   console.log( `Servidor corriendo en puerto ${ process.env.PORT }` );
