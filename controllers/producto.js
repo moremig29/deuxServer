@@ -56,9 +56,60 @@ const getProductos = async ( req, resp = response ) => {
     });
 
   }
-} 
+}
+
+const putProducto = async ( req, resp = response ) => {
+  
+  const id = req.params.id;
+  const producto = req.body;
+  const dbProducto = await Producto.findByIdAndUpdate( id, producto, { new: true } );
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: 'Producto editado',
+      producto: dbProducto
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se puede editar'
+    });
+
+  }
+}
+
+const deleteProducto = async ( req, resp = response ) => {
+  
+  const id = req.params.id;
+  const dbProducto = await Producto.findByIdAndDelete( id );
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: 'Producto Eliminado',
+      producto: dbProducto
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo eliminar'
+    });
+
+  }
+}
 
 module.exports = {
   crear,
-  getProductos
+  getProductos,
+  putProducto,
+  deleteProducto
 }
