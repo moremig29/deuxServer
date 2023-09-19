@@ -20,7 +20,7 @@ const crear = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: `ha registrado "${dbProducto.nombre}"`,
+      msg: `ha registrado ${dbProducto.nombre}`,
       producto: dbProducto
     });
     
@@ -69,7 +69,7 @@ const putProducto = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: `Se ha modificado "${dbProducto.nombre}"`,
+      msg: `Se ha modificado ${dbProducto.nombre}`,
       producto: dbProducto
     });
     
@@ -93,7 +93,7 @@ const deleteProducto = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: `Se ha eliminado "${dbProducto.nombre}"`,
+      msg: `Se ha eliminado ${dbProducto.nombre}`,
       producto: dbProducto
     });
     

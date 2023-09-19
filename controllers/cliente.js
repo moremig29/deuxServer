@@ -20,8 +20,8 @@ const crear = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'ok',
-      dbCliente
+      msg: `Se ha modificado ${dbCliente.nombre}`,
+      cliente: dbCliente
     });
     
   } catch (error) {
@@ -37,7 +37,7 @@ const crear = async ( req, resp = response ) => {
 
 const getCliente = async ( req, resp = response ) => {
 
-  const dbCliente = await Cliente.find();
+  const dbCliente = await Cliente.find().sort({'nombre': 1});
 
   try {
 
@@ -56,9 +56,60 @@ const getCliente = async ( req, resp = response ) => {
     });
 
   }
-} 
+}
+
+const putCliente = async ( req, resp = response ) => {
+
+  const id = req.params.id;
+  const cliente = req.body;
+  const dbCliente = await Cliente.findByIdAndUpdate( id, cliente, { new: true } );
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: `Se ha modificado ${dbCliente.nombre}`,
+      cliente: dbCliente
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se puede editar'
+    });
+
+  }
+}
+
+const deleteCliente = async ( req, resp = response ) => {
+
+  const id = req.params.id;
+  const dbCliente = await Cliente.findByIdAndDelete( id );
+
+  try {
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: `Se ha eliminado ${dbCliente.nombre}`,
+      cliente: dbCliente
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo eliminar'
+    });
+
+  }
+}
 
 module.exports = {
   crear,
-  getCliente
+  getCliente,
+  putCliente,
+  deleteCliente
 }

@@ -18,8 +18,8 @@ const ClienteSchema = Schema({
   { timestamps: true });
 
 ClienteSchema.method('toJSON', function() {
-  const { _id, __v, ...object } = this.toObject();
-  object.uid = _id;
+  const { _id, __v, createdAt, updatedAt, ...object } = this.toObject();
+  object.id = _id;
   return object;
 });
 
