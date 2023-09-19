@@ -20,8 +20,8 @@ const crear = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'ok',
-      dbProducto
+      msg: `ha registrado "${dbProducto.nombre}"`,
+      producto: dbProducto
     });
     
   } catch (error) {
@@ -37,7 +37,7 @@ const crear = async ( req, resp = response ) => {
 
 const getProductos = async ( req, resp = response ) => {
 
-  const dbProducto = await Producto.find().populate('insumos');
+  const dbProducto = await Producto.find().populate('insumos').sort({nombre: 1});
 
   try {
 
@@ -69,7 +69,7 @@ const putProducto = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'Producto editado',
+      msg: `Se ha modificado "${dbProducto.nombre}"`,
       producto: dbProducto
     });
     
@@ -93,7 +93,7 @@ const deleteProducto = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'Producto Eliminado',
+      msg: `Se ha eliminado "${dbProducto.nombre}"`,
       producto: dbProducto
     });
     
