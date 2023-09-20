@@ -21,6 +21,10 @@ const ProductoSchema = Schema({
   img: {
     type: String,
     required: true
+  },
+  rating: {
+    type: Number,
+    required: true
   }
 },
   { timestamps: true });
