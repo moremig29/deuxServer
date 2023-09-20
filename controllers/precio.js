@@ -10,7 +10,7 @@ const getPrecio = async ( req, resp = response ) => {
     const dbPrecio = await Inventario.find()
                                       .where('cantidad').gt(0)
                                       .populate('producto', 'precio_venta img rating' )
-                                      .sort({desc: 1});
+                                      .sort({articulo: 1});
 
     // generar response
     return resp.status(201).json({

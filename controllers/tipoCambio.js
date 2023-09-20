@@ -21,7 +21,7 @@ const crear = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'ok',
-      dbTipoCambio
+      tipoCambio: dbTipoCambio
     });
     
   } catch (error) {
