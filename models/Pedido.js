@@ -19,6 +19,9 @@ const PedidoSchema = Schema({
     type: Date,
     required: true
   },
+  lugarEntrega: {
+    type: String,
+  },
   productos: [ ProductosSchema ],
   total: {
     type: Number,
