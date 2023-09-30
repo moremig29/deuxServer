@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const ProductosSchema = Schema({
-  producto: {
+  articulo: {
     type: Schema.Types.ObjectId,
-    ref: 'Producto'
+    ref: 'Inventario'
   },
   cantidad: {
     type: Number,
@@ -22,7 +22,7 @@ const PedidoSchema = Schema({
   lugarEntrega: {
     type: String,
   },
-  productos: [ ProductosSchema ],
+  articulos: [ ProductosSchema ],
   total: {
     type: Number,
     required: true

@@ -39,7 +39,7 @@ const getPedido = async ( req, resp = response ) => {
   const dbPedido = await Pedido.find()
                                 .populate('estatus', 'desc')
                                 .populate('cliente', 'nombre')
-                                .populate('productos.producto', 'nombre');
+                                .populate('articulos.articulo', 'articulo');
 
   try {
 
