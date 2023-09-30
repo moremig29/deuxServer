@@ -6,7 +6,9 @@ const getInventario = async ( req, resp = response ) => {
 
   try {
 
-    const dbInventario = await Inventario.find().populate('producto', 'id nombre' ).sort({desc: 1});
+    const dbInventario = await Inventario.find()
+                                          .populate('producto', 'id nombre precio_venta' )
+                                          .sort({desc: 1});
 
     // generar response
     return resp.status(201).json({

@@ -47,7 +47,7 @@ const getPedido = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'listado de pedidos',
-      moneda: dbPedido
+      pedidos: dbPedido
     });
     
   } catch (error) {
