@@ -18,6 +18,14 @@ const CuentaSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'TipoCuenta'
   },
+  banco: {
+    type: Schema.Types.ObjectId,
+    ref: 'Banco'
+  },
+  moneda: {
+    type: Schema.Types.ObjectId,
+    ref: 'Moneda'
+  },
   fecha: {
     type: Date,
     required: true
@@ -26,8 +34,8 @@ const CuentaSchema = Schema({
   { timestamps: true });
 
 CuentaSchema.method('toJSON', function() {
-  const { _id, __v, ...object } = this.toObject();
-  object.uid = _id;
+  const { _id, __v, createdAt, updatedAt, ...object } = this.toObject();
+  object.id = _id;
   return object;
 });
 

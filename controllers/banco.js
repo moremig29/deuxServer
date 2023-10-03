@@ -1,27 +1,27 @@
 const { response } = require('express');
-const Cuenta = require('../models/Cuenta');
+const Banco = require('../models/Banco');
 
 // registrar compra
-const postCuenta = async ( req, resp = response ) => {
+const postBanco = async ( req, resp = response ) => {
 
   const uid = req.uid;
 
   try {
 
     // crear usuario con el modelo
-    let dbCuenta = new Cuenta( {
+    let dbBanco = new Banco( {
       usuario: uid,
       ...req.body
     });
 
     //crear usuario de db
-    await dbCuenta.save();
+    await dbBanco.save();
 
     // generar response
     return resp.status(201).json({
       ok: true,
       msg: 'ok',
-      dbCuenta
+      banco: dbBanco
     });
     
   } catch (error) {
@@ -35,21 +35,17 @@ const postCuenta = async ( req, resp = response ) => {
 
 }
 
-const getCuenta = async ( req, resp = response ) => {
+const getBancos = async ( req, resp = response ) => {
 
-  const dbCuenta = await Cuenta.find()
-                                .populate('banco', 'banco')
-                                .populate('moneda', 'desc')
-                                .populate('tipoTransac', 'desc')
-                                .populate('tipoCuenta', 'desc');
+  const dbBancos = await Banco.find();
 
   try {
 
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: 'listado de cuenta',
-      cuenta: dbCuenta
+      msg: 'listado de bancos',
+      bancos: dbBancos
     });
     
   } catch (error) {
@@ -63,6 +59,6 @@ const getCuenta = async ( req, resp = response ) => {
 } 
 
 module.exports = {
-  postCuenta,
-  getCuenta
+  postBanco,
+  getBancos
 }
