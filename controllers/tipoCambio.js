@@ -10,7 +10,7 @@ const crear = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbTipoCambio = new TipoCambio( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -37,7 +37,10 @@ const crear = async ( req, resp = response ) => {
 
 const getTipoCambio = async ( req, resp = response ) => {
 
-  const dbTipoCambio = await TipoCambio.findOne().sort( {createdAt: -1} );
+  const uid = req.uid;
+
+  const dbTipoCambio = await TipoCambio.findOne({ 'user': uid })
+                                        .sort( {createdAt: -1} );
 
   try {
 
@@ -45,7 +48,7 @@ const getTipoCambio = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'listado de TipoCambio',
-      tipoCambio: dbTipoCambio
+      tipoCambio: dbTipoCambio ? dbTipoCambio : []
     });
     
   } catch (error) {

@@ -16,12 +16,16 @@ const CompraSchema = Schema({
   fecha: {
     type: Date,
     required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
   }
 },
   { timestamps: true });
 
 CompraSchema.method('toJSON', function() {
-  const { _id, __v, ...object } = this.toObject();
+  const { _id, __v, user, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });

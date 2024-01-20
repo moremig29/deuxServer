@@ -22,3 +22,6 @@ const dbConnection = async() => {
 module.exports = {
   dbConnection
 }
+
+//mongodb+srv://laptopUser:clyRWxBmQx0cZW1J@cluster0.ylcnq9w.mongodb.net/deux
+//mongodb://127.0.0.1:27017/deux

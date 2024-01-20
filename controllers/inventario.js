@@ -4,9 +4,11 @@ const Inventario = require('../models/Inventario');
 // obtener Inventario
 const getInventario = async ( req, resp = response ) => {
 
+  const uid = req.uid;
+
   try {
 
-    const dbInventario = await Inventario.find()
+    const dbInventario = await Inventario.where({ 'user': uid })
                                           .populate('producto', 'id nombre precio_venta' )
                                           .sort({desc: 1});
 
@@ -36,7 +38,7 @@ const postInventario = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbInventario = new Inventario( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 

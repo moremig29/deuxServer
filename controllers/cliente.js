@@ -10,7 +10,7 @@ const crear = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbCliente = new Cliente( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -20,7 +20,7 @@ const crear = async ( req, resp = response ) => {
     // generar response
     return resp.status(201).json({
       ok: true,
-      msg: `Se ha modificado ${dbCliente.nombre}`,
+      msg: `Se ha creado ${dbCliente.nombre}`,
       cliente: dbCliente
     });
     
@@ -37,7 +37,10 @@ const crear = async ( req, resp = response ) => {
 
 const getCliente = async ( req, resp = response ) => {
 
-  const dbCliente = await Cliente.find().sort({'nombre': 1});
+  const uid = req.uid;
+
+  const dbCliente = await Cliente.where({ 'user': uid })
+                                  .sort({'nombre': 1});
 
   try {
 

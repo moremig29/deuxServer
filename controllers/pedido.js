@@ -10,7 +10,7 @@ const postPedido = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbPedido = new Pedido( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -36,7 +36,9 @@ const postPedido = async ( req, resp = response ) => {
 
 const getPedido = async ( req, resp = response ) => {
 
-  const dbPedido = await Pedido.find()
+  const uid = req.uid;
+
+  const dbPedido = await Pedido.where({ 'user': uid })
                                 .populate('estatus', 'desc')
                                 .populate('cliente', 'nombre')
                                 .populate('articulos.articulo', 'articulo');

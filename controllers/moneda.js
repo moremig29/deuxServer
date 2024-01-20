@@ -10,7 +10,7 @@ const crear = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbMoneda = new Moneda( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -37,7 +37,9 @@ const crear = async ( req, resp = response ) => {
 
 const getMoneda = async ( req, resp = response ) => {
 
-  const dbMoneda = await Moneda.find();
+  const uid = req.uid;
+
+  const dbMoneda = await Moneda.where({ user: uid });
 
   try {
 

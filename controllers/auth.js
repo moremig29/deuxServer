@@ -21,7 +21,6 @@ const crearUsuario = async ( req, resp = response ) => {
       })
     }
 
-
     // crear usuario con el modelo
     dbUser = new Usuario( req.body );
 
@@ -53,10 +52,6 @@ const crearUsuario = async ( req, resp = response ) => {
     });
 
   }
-
-
-
-
 
 }
 
@@ -102,8 +97,6 @@ const loginUsuario = async ( req, resp = response ) => {
 
 
   } catch (error) {
-
-    console.log( error );
 
     return resp.status(500).json({
       ok: true,

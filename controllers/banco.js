@@ -10,7 +10,7 @@ const postBanco = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbBanco = new Banco( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -37,7 +37,9 @@ const postBanco = async ( req, resp = response ) => {
 
 const getBancos = async ( req, resp = response ) => {
 
-  const dbBancos = await Banco.find();
+  const uid = req.uid;
+
+  const dbBancos = await Banco.where({ user: uid });
 
   try {
 

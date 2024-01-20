@@ -5,9 +5,11 @@ const Inventario = require('../models/Inventario')
 // obtener Precios
 const getPrecio = async ( req, resp = response ) => {
 
+  const uid = req.uid;
+
   try {
 
-    const dbPrecio = await Inventario.find()
+    const dbPrecio = await Inventario.find({ 'user': uid })
                                       .where('cantidad').gt(0)
                                       .populate('producto', 'precio_venta img rating' )
                                       .sort({articulo: 1});

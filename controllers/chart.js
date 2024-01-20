@@ -3,7 +3,10 @@ const Cliente = require('../models/Cliente');
 
 const getCuentaCliente = async ( req, resp = response ) => {
 
-  const cantidadClientes = await Cliente.countDocuments();
+  const uid = req.uid;
+
+  const cantidadClientes = await Cliente.where({ 'user': uid })
+                                        .countDocuments();
 
   try {
 

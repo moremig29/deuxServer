@@ -10,7 +10,7 @@ const crear = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbInsumo = new Insumo( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -38,7 +38,10 @@ const crear = async ( req, resp = response ) => {
 // obtener todos los registros
 const getInsumo = async ( req, resp = response ) => {
 
-  const dbInsumo = await Insumo.find().sort({desc: 1});
+  const uid = req.uid;
+
+  const dbInsumo = await Insumo.where({ user: uid })
+                                .sort({desc: 1});
 
   try {
     // generar response

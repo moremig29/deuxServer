@@ -13,6 +13,10 @@ const InsumoSchema = Schema({
   valor: {
     type: String,
     required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
   }
 },
   { 
@@ -20,7 +24,7 @@ const InsumoSchema = Schema({
   });
 
 InsumoSchema.method('toJSON', function() {
-  const { _id, __v, createdAt, updatedAt, ...object } = this.toObject();
+  const { _id, __v, user, createdAt, updatedAt, ...object } = this.toObject();
   object.id = _id;
   return object;
 });

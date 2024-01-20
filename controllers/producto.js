@@ -10,7 +10,7 @@ const crear = async ( req, resp = response ) => {
 
     // crear usuario con el modelo
     let dbProducto = new Producto( {
-      usuario: uid,
+      user: uid,
       ...req.body
     });
 
@@ -37,7 +37,11 @@ const crear = async ( req, resp = response ) => {
 
 const getProductos = async ( req, resp = response ) => {
 
-  const dbProducto = await Producto.find().populate('insumos').sort({nombre: 1});
+  const uid = req.uid;
+
+  const dbProducto = await Producto.where({ 'user': uid })
+                                    .populate('insumos')
+                                    .sort({nombre: 1});
 
   try {
 

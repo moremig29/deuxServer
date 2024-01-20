@@ -29,12 +29,24 @@ const CuentaSchema = Schema({
   fecha: {
     type: Date,
     required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario'
+  },
+  cliente:{
+    type: Schema.Types.ObjectId,
+    ref: 'Cliente'
+  },
+  pedido: {
+    type: Schema.Types.ObjectId,
+    ref: 'Pedido'
   }
 },
   { timestamps: true });
 
 CuentaSchema.method('toJSON', function() {
-  const { _id, __v, createdAt, updatedAt, ...object } = this.toObject();
+  const { _id, __v, user, createdAt, updatedAt, ...object } = this.toObject();
   object.id = _id;
   return object;
 });
