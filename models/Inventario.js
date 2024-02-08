@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 
 const InventarioSchema = Schema({
-  articulo: {
+  nombre: {
     type: String,
     required: true
   },

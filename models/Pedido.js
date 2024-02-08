@@ -8,7 +8,7 @@ const ProductosSchema = Schema({
   cantidad: {
     type: Number,
   }
-})
+}, { _id : false } );
 
 const PedidoSchema = Schema({
   cliente: {
@@ -22,7 +22,7 @@ const PedidoSchema = Schema({
   lugarEntrega: {
     type: String,
   },
-  articulos: [ ProductosSchema ],
+  items: ProductosSchema,
   total: {
     type: Number,
     required: true
@@ -41,6 +41,11 @@ const PedidoSchema = Schema({
 PedidoSchema.method('toJSON', function() {
   const { _id, __v, user, createdAt, updatedAt, ...object } = this.toObject();
   object.id = _id;
+  return object;
+});
+
+ProductosSchema.method('toJSON', function() {
+  const { _id, ...object } = this.toObject();
   return object;
 });
 
