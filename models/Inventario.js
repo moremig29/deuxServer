@@ -2,21 +2,29 @@ const { Schema, model } = require("mongoose");
 
 
 const InventarioSchema = Schema({
-  nombre: {
+  categoria: {
+    type: Schema.Types.ObjectId,
+    ref: 'Categoria'
+  },
+  concepto: {
     type: String,
     required: true
   },
-  producto: {
-    type: Schema.Types.ObjectId,
-    ref: 'Producto'
-  },
-  cantidad: {
+  inicial: {
     type: Number,
     required: true,
   },
-  fecha_compra: {
-    type: Date,
-    required: true
+  ventas: {
+    type: Number,
+    required: true,
+  },
+  compras: {
+    type: Number,
+    required: true,
+  },
+  final: {
+    type: Number,
+    required: true,
   },
   user: {
     type: Schema.Types.ObjectId,

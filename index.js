@@ -26,6 +26,7 @@ app.use( '/api/tipoTransac', require('./routes/tipoTransac') );
 app.use( '/api/tipoCuenta', require('./routes/tipoCuenta') );
 app.use( '/api/tipoCambio', require('./routes/tipoCambio') );
 app.use( '/api/banco', require('./routes/banco') );
+app.use( '/api/categoria', require('./routes/categoria') );
 app.use( '/api/cuenta', require('./routes/cuenta') );
 app.use( '/api/compra', require('./routes/compra') );
 app.use( '/api/cliente', require('./routes/cliente') );
