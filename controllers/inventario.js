@@ -10,6 +10,7 @@ const getInventario = async ( req, resp = response ) => {
 
     const dbInventario = await Inventario.where({ 'user': uid })
                                           .populate('categoria', 'nombre' )
+                                          .populate('insumo', 'nombre' )
                                           .sort({desc: 1});
 
     // generar response

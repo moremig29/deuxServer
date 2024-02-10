@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
-const ProductosSchema = Schema({
+const ItemsSchema = Schema({
   articulo: {
     type: Schema.Types.ObjectId,
-    ref: 'Inventario'
+    ref: 'Insumo'
   },
   cantidad: {
     type: Number,
@@ -22,7 +22,7 @@ const PedidoSchema = Schema({
   lugarEntrega: {
     type: String,
   },
-  items: ProductosSchema,
+  item: ItemsSchema,
   total: {
     type: Number,
     required: true
@@ -44,7 +44,7 @@ PedidoSchema.method('toJSON', function() {
   return object;
 });
 
-ProductosSchema.method('toJSON', function() {
+ItemsSchema.method('toJSON', function() {
   const { _id, ...object } = this.toObject();
   return object;
 });

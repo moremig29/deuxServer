@@ -6,9 +6,9 @@ const InventarioSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'Categoria'
   },
-  concepto: {
-    type: String,
-    required: true
+  insumo: {
+    type: Schema.Types.ObjectId,
+    ref: 'Insumo'
   },
   inicial: {
     type: Number,
@@ -25,6 +25,10 @@ const InventarioSchema = Schema({
   final: {
     type: Number,
     required: true,
+  },
+  fecha: {
+    type: String,
+    required: true
   },
   user: {
     type: Schema.Types.ObjectId,

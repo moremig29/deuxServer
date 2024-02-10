@@ -2,16 +2,20 @@ const { Schema, model } = require("mongoose");
 
 
 const InsumoSchema = Schema({
-  desc: {
+  nombre: {
     type: String,
     required: true
   },
-  precio: {
-    type: String,
-    required: true
+  unidadesCompra: {
+    type: Number,
+    default: 0
   },
-  valor: {
-    type: String,
+  costoCompra: {  
+    type: Number,
+    default: 0
+  },
+  costoUnidad: {  
+    type: Number,
     required: true
   },
   user: {
