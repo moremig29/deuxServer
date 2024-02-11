@@ -21,7 +21,7 @@ const crear = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'ok',
-      dbInsumo
+      data: dbInsumo
     });
     
   } catch (error) {
@@ -41,14 +41,15 @@ const getInsumo = async ( req, resp = response ) => {
   const uid = req.uid;
 
   const dbInsumo = await Insumo.where({ user: uid })
-                                .sort({desc: 1});
+                                .populate('categoria', 'nombre')
+                                .sort({createdAt: -1});
 
   try {
     // generar response
     return resp.status(201).json({
       ok: true,
       msg: 'listado de insumo',
-      insumo: dbInsumo
+      data: dbInsumo
     });
     
   } catch (error) {
@@ -74,7 +75,7 @@ const putInsumo = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Insumo editado',
-      insumo: dbInsumo
+      data: dbInsumo
     });
     
   } catch (error) {
@@ -99,7 +100,7 @@ const deleteInsumo = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Insumo Eliminado',
-      dbCompra: dbInsumo
+      data: dbInsumo
     });
     
   } catch (error) {

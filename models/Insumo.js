@@ -2,6 +2,10 @@ const { Schema, model } = require("mongoose");
 
 
 const InsumoSchema = Schema({
+  categoria: {
+    type: Schema.Types.ObjectId,
+    ref: 'Categoria'
+  },
   nombre: {
     type: String,
     required: true

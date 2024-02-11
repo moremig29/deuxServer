@@ -2,10 +2,6 @@ const { Schema, model } = require("mongoose");
 
 
 const InventarioSchema = Schema({
-  categoria: {
-    type: Schema.Types.ObjectId,
-    ref: 'Categoria'
-  },
   insumo: {
     type: Schema.Types.ObjectId,
     ref: 'Insumo'
