@@ -12,10 +12,12 @@ const InventarioSchema = Schema({
   },
   ventas: {
     type: Number,
+    default: 0,
     required: true,
   },
   compras: {
     type: Number,
+    default: 0,
     required: true,
   },
   final: {
@@ -23,7 +25,7 @@ const InventarioSchema = Schema({
     required: true,
   },
   fecha: {
-    type: String,
+    type: Date,
     required: true
   },
   user: {

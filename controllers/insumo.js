@@ -42,7 +42,7 @@ const getInsumo = async ( req, resp = response ) => {
 
   const dbInsumo = await Insumo.where({ user: uid })
                                 .populate('categoria', 'nombre')
-                                .sort({createdAt: -1});
+                                .sort({nombre: 1});
 
   try {
     // generar response

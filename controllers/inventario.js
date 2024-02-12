@@ -9,7 +9,6 @@ const getInventario = async ( req, resp = response ) => {
   try {
 
     const dbInventario = await Inventario.where({ 'user': uid })
-                                          .populate('categoria', 'nombre' )
                                           .populate('insumo', 'nombre' )
                                           .sort({desc: 1});
 
@@ -17,11 +16,11 @@ const getInventario = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Inventario',
-      inventario: dbInventario
+      data: dbInventario
     });
     
   } catch (error) {
-
+    console.log(error)
     return resp.status(500).json({
       ok: false,
       msg: 'No se puede mostrar'
@@ -50,11 +49,11 @@ const postInventario = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Registrado',
-      inventario: dbInventario
+      data: dbInventario
     });
     
   } catch (error) {
-
+    console.log(error)
     return resp.status(500).json({
       ok: false,
       msg: 'No se pudo registrar'
@@ -76,7 +75,7 @@ const putInventario = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Inventario editado',
-      insumo: dbInventario
+      data: dbInventario
     });
     
   } catch (error) {
@@ -101,7 +100,7 @@ const deleteInventario = async ( req, resp = response ) => {
     return resp.status(201).json({
       ok: true,
       msg: 'Articulo inventario Eliminado',
-      inventario: dbInventario
+      data: dbInventario
     });
     
   } catch (error) {
@@ -123,14 +122,14 @@ const getLowInventario = async ( req, resp = response ) => {
 
     const dbInventario = await Inventario.where({ 'user': uid })
                                           .where('final').gte(0).lte(1)
-                                          .populate('categoria', 'nombre' )
+                                          .populate('insumo', 'nombre' )
                                           .sort({final: 1});
 
     // generar response
     return resp.status(201).json({
       ok: true,
       msg: 'Low inventory',
-      inventario: dbInventario
+      data: dbInventario
     });
     
   } catch (error) {
