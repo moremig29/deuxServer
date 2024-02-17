@@ -10,14 +10,7 @@ const getPrecio = async ( req, resp = response ) => {
 
   try {
 
-  /*  const dbPrecio = await Inventario.find({ 'user': uid })
-                                      .where('cantidad').gt(0)
-                                      .populate('insumo')
-                                      .sort({articulo: 1}); */
-
   const dbPrecio = await Producto.find({ 'user': uid })
-                                  .populate('insumos')
-                                      
 
     // generar response
     return resp.status(201).json({

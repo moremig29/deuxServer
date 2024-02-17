@@ -22,6 +22,11 @@ const InsumoSchema = Schema({
     type: Number,
     required: true
   },
+  basico: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario'

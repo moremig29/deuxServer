@@ -41,7 +41,7 @@ const getPedido = async ( req, resp = response ) => {
   const dbPedido = await Pedido.where({ 'user': uid })
                                 .populate('estatus', 'desc')
                                 .populate('cliente', 'nombre')
-                                .populate('item.articulo', 'nombre');
+                                .populate('items.articulo', 'nombre');
 
   try {
 

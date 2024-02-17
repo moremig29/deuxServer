@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const ItemsSchema = Schema({
   articulo: {
     type: Schema.Types.ObjectId,
-    ref: 'Insumo'
+    ref: 'Producto'
   },
   cantidad: {
     type: Number,
@@ -22,7 +22,7 @@ const PedidoSchema = Schema({
   lugarEntrega: {
     type: String,
   },
-  item: ItemsSchema,
+  items: ItemsSchema,
   total: {
     type: Number,
     required: true
