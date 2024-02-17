@@ -7,12 +7,10 @@ const ClienteSchema = Schema({
     required: true
   },
   telefono: {
-    type: String,
-    required: true
+    type: String
   },
   email: {
-    type: String,
-    required: true
+    type: String
   },
   user: {
     type: Schema.Types.ObjectId,

@@ -153,8 +153,63 @@ const getCuentaByType = async ( req, resp = response ) => {
 
 }
 
+const putCuenta = async ( req, resp = response ) => {
+
+  
+  try {
+    
+    const id = req.params.id
+    const cuenta = req.body
+    const dbCuenta = await Cuenta.findByIdAndUpdate(id, cuenta, {new: true});
+    
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: 'Operación editada',
+      dbCuenta
+    });
+    
+  } catch (error) {
+    console.log(error)
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo Editar'
+    });
+
+  }
+
+}
+
+const deleteCuenta = async ( req, resp = response ) => {
+
+  try {
+
+    const id = req.params.id;
+    const dbCuenta = await Cuenta.findByIdAndDelete( id );
+
+    // generar response
+    return resp.status(201).json({
+      ok: true,
+      msg: 'Operacion Eliminada',
+      dbCuenta
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'No se pudo eliminar'
+    });
+
+  }
+
+}
+
 module.exports = {
   postCuenta,
   getCuenta,
-  getCuentaByType
+  getCuentaByType,
+  putCuenta,
+  deleteCuenta
 }

@@ -89,10 +89,10 @@ const putPedido = async ( req, res = response ) => {
 
 const deletePedido = async ( req, res = response ) => {
 
-  const id = req.params.id;
-  const dbPedido = await Pedido.findByIdAndDelete( id );
-
   try {
+    
+    const id = req.params.id;
+    const dbPedido = await Pedido.findByIdAndDelete( id );
 
     // generar response
     return res.status(200).json({
