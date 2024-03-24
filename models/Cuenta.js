@@ -39,8 +39,7 @@ const CuentaSchema = Schema({
     ref: 'Cliente'
   },
   pedido: {
-    type: Schema.Types.ObjectId,
-    ref: 'Pedido',
+    type: String,
   }
 },
   { timestamps: true });

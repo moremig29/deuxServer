@@ -1,21 +1,29 @@
 const { response } = require('express');
 const Cuenta = require('../models/Cuenta');
+const PedidoCuenta = require('../models/PedidoCuenta');
 
 // registrar compra
 const postCuenta = async ( req, resp = response ) => {
 
   const uid = req.uid;
+  const pedido = req.body.pedido;
 
   try {
 
-    // crear usuario con el modelo
     let dbCuenta = new Cuenta( {
       user: uid,
       ...req.body
     });
 
-    //crear usuario de db
     await dbCuenta.save();
+
+    if ( pedido ) {
+      let pedidoCuenta = new PedidoCuenta({
+        pedido: pedido,
+        cuenta: dbCuenta._id
+      })
+      await pedidoCuenta.save()
+    }
 
     // generar response
     return resp.status(201).json({
