@@ -5,12 +5,28 @@ const Inventario = require('../models/Inventario');
 const getInventario = async ( req, resp = response ) => {
 
   const uid = req.uid;
+  const month = new Date().getMonth()
 
   try {
 
     const dbInventario = await Inventario.where({ 'user': uid })
                                           .populate('insumo', 'nombre' )
                                           .sort({desc: 1});
+
+    if (new Date(dbInventario[dbInventario.length -1].fecha).getMonth() !== month ){
+      for await (const item of dbInventario) {
+        let updateInventory = new Inventario({
+          fecha: new Date().toString(),
+          insumo: item.insumo._id,
+          user: item.user,
+          inicial: item.final,
+          final: 0,
+        })
+        await updateInventory.save()
+      }
+    }
+
+
 
     // generar response
     return resp.status(201).json({
