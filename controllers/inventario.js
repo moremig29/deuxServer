@@ -5,7 +5,7 @@ const Inventario = require('../models/Inventario');
 const getInventario = async ( req, resp = response ) => {
 
   const uid = req.uid;
-  const month = new Date().getMonth()
+  const actualMonth = new Date().getMonth()
 
   try {
 
@@ -13,16 +13,23 @@ const getInventario = async ( req, resp = response ) => {
                                           .populate('insumo', 'nombre' )
                                           .sort({desc: 1});
 
-    if (new Date(dbInventario[dbInventario.length -1].fecha).getMonth() !== month ){
+    const lastRegisteredMonth = new Date(dbInventario[dbInventario.length -1].fecha).getMonth()
+
+    //TODO: hacer ajustes para el cambio de año
+
+    if (lastRegisteredMonth !== actualMonth){
       for await (const item of dbInventario) {
-        let updateInventory = new Inventario({
-          fecha: new Date().toString(),
-          insumo: item.insumo._id,
-          user: item.user,
-          inicial: item.final,
-          final: 0,
-        })
-        await updateInventory.save()
+        let itemDate = new Date(item.fecha);
+        if ( actualMonth - itemDate === 1 ) {
+          let updateInventory = new Inventario({
+            fecha: new Date().toString(),
+            insumo: item.insumo._id,
+            user: item.user,
+            inicial: item.final,
+            final: item.final,
+          })
+          await updateInventory.save()
+        }
       }
     }
 
