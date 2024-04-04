@@ -127,7 +127,6 @@ const renovarToken = async ( req, resp = response ) => {
   });
 }
 
-
 module.exports = {
   crearUsuario,
   loginUsuario,

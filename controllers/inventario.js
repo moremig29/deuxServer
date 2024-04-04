@@ -9,7 +9,7 @@ const getInventario = async ( req, resp = response ) => {
 
   try {
 
-    const dbInventario = await Inventario.where({ 'user': uid })
+    let dbInventario = await Inventario.where({ 'user': uid })
                                           .populate('insumo', 'nombre' )
                                           .sort({desc: 1});
 
@@ -19,7 +19,7 @@ const getInventario = async ( req, resp = response ) => {
 
     if (lastRegisteredMonth !== actualMonth){
       for await (const item of dbInventario) {
-        let itemDate = new Date(item.fecha);
+        let itemDate = new Date(item.fecha).getMonth();
         if ( actualMonth - itemDate === 1 ) {
           let updateInventory = new Inventario({
             fecha: new Date().toString(),
@@ -33,7 +33,9 @@ const getInventario = async ( req, resp = response ) => {
       }
     }
 
-
+    dbInventario = await Inventario.where({ 'user': uid })
+                                          .populate('insumo', 'nombre' )
+                                          .sort({desc: 1});
 
     // generar response
     return resp.status(201).json({
