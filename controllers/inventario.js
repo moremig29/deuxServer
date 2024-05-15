@@ -142,11 +142,13 @@ const deleteInventario = async ( req, resp = response ) => {
 const getLowInventario = async ( req, resp = response ) => {
 
   const uid = req.uid;
+  const actualMonth = new Date().getMonth()
 
   try {
 
     const dbInventario = await Inventario.where({ 'user': uid })
                                           .where('final').gte(0).lte(1)
+                                          .where({ "$expr": { "$eq": [{ "$month": "$fecha" }, actualMonth + 1] }})
                                           .populate('insumo', 'nombre' )
                                           .sort({final: 1});
 
