@@ -1,7 +1,7 @@
 const { response } = require('express');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs')
-const { generarJWT } = require('../helpers/jwt');
+const { generarJWT, generarApiKEY } = require('../helpers/jwt');
 
 // crear usuario
 const crearUsuario = async ( req, resp = response ) => {
@@ -127,8 +127,49 @@ const renovarToken = async ( req, resp = response ) => {
   });
 }
 
+const crearApiKey = async (req, resp = response ) => {
+
+  const uid = req.uid
+  const name = req.name
+
+  const dbUser = await Usuario.findOne( { name } );
+  
+  try {
+    
+    const apiKey = await generarApiKEY( uid, name )
+
+    const user = {
+      id: dbUser._id,
+      name: dbUser.name,
+      email: dbUser.email,
+      password: dbUser.password,
+      secret: apiKey.secret
+    }
+
+    console.log( 'user:', user )
+
+    const updateUser = await Usuario.findByIdAndUpdate( user.id, user, { new: true } );
+
+    return resp.status(201).json({
+      ok: true,
+      msg: 'ok',
+      apiKey: apiKey.client,
+      user: updateUser
+    });
+
+
+  } catch (error) {
+    return resp.status(500).json({
+      ok: false,
+      msg: 'Comuniquese con el administrador'
+    });
+  }
+
+}
+
 module.exports = {
   crearUsuario,
   loginUsuario,
-  renovarToken
+  renovarToken, 
+  crearApiKey
 }

@@ -22,6 +22,33 @@ const generarJWT = ( uid, name ) => {
 
 }
 
+const generarApiKEY = ( uid, name ) => {
+  
+  return new Promise( (resolve, reject )  => {
+    
+    const key = [...Array(70)]
+      .map((e) => ((Math.random() * 36) | 0).toString(36))
+      .join('');
+
+    if (key) {
+      const client = key.substring(0,50)
+      const secret = key.substring(50,69)
+
+      const payload = { uid, name, client }
+      const jwtkey = jwt.sign(payload, secret)
+
+      const apiKey = {
+        client: jwtkey,
+        secret
+      }
+      resolve (apiKey)
+    } else {
+      reject()
+    }
+  }
+)}
+
 module.exports = {
-  generarJWT
+  generarJWT,
+  generarApiKEY
 }

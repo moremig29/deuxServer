@@ -15,8 +15,17 @@ const UsuarioSchema = Schema({
     type: String,
     required: true
   },
+  secret: {
+    type: String
+  }
   
 },
   { timestamps: true });
+
+UsuarioSchema.method('toJSON', function() {
+  const { _id, __v, user, createdAt, updatedAt, password, ...object } = this.toObject();
+  object.id = _id;
+  return object;
+});
 
 module.exports =  model('Usuario', UsuarioSchema);

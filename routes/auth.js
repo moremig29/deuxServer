@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const { check } = require('express-validator')
-const { crearUsuario, loginUsuario, renovarToken } = require('../controllers/auth');
+const { crearUsuario, loginUsuario, renovarToken, crearApiKey } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
+const { crear } = require('../controllers/estatus');
 
 const router = Router();
 
@@ -23,5 +24,8 @@ router.post( '/', [
 
 //revalidar token
 router.get( '/renew', validarJWT ,renovarToken );
+
+//crear key para acceder al api
+router.get('/genapikey', validarJWT, crearApiKey );
 
 module.exports = router;
