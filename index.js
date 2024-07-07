@@ -13,12 +13,12 @@ dbConnection();
 app.use( express.static('public') );
 
 //cors comentar localhost y !origin para subir
-const allowURLS = ['https://deuxcreativa.com.ve','https://deuxapp.netlify.app', 'http://localhost:4200']
+const allowURLS = ['https://deuxcreativa.com.ve','https://deuxapp.netlify.app', /*'http://localhost:4200'*/]
 const corsOptions = {
   origin: function (origin, callback) {
-    if(!origin){//for bypassing postman req with  no origin
-      return callback(null, true);
-    }
+    // if(!origin){//for bypassing postman req with  no origin
+    //   return callback(null, true);
+    // }
     if (allowURLS.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
