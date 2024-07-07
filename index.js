@@ -12,8 +12,21 @@ dbConnection();
 //directorio público
 app.use( express.static('public') );
 
-//cors
-app.use( cors() );
+//cors comentar localhost y !origin para subir
+const allowURLS = ['https://deuxcreativa.com.ve', 'http://localhost:4200']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if(!origin){//for bypassing postman req with  no origin
+      return callback(null, true);
+    }
+    if (allowURLS.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use( cors(corsOptions) );
 
 //lectura y parseo del body
 app.use( express.json() );
