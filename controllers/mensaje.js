@@ -1,5 +1,5 @@
 const { response } = require('express');
-const Mensaje = require('../models/mensaje');
+const Mensaje = require('../models/Mensaje');
 
 // registrar compra
 const crear = async ( req, resp = response ) => {
