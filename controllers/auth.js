@@ -136,24 +136,23 @@ const crearApiKey = async (req, resp = response ) => {
   
   try {
     
-    const apiKey = await generarApiKEY( uid, name )
+    const {client, secret, apiKey} = await generarApiKEY( uid, name )
 
     const user = {
       id: dbUser._id,
       name: dbUser.name,
       email: dbUser.email,
       password: dbUser.password,
-      secret: apiKey.secret
+      secret: secret,
+      client: client
     }
-
-    console.log( 'user:', user )
 
     const updateUser = await Usuario.findByIdAndUpdate( user.id, user, { new: true } );
 
     return resp.status(201).json({
       ok: true,
       msg: 'ok',
-      apiKey: apiKey.client,
+      apiKey,
       user: updateUser
     });
 

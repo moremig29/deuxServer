@@ -34,14 +34,15 @@ const generarApiKEY = ( uid, name ) => {
       const client = key.substring(0,50)
       const secret = key.substring(50,69)
 
-      const payload = { uid, name, client }
-      const jwtkey = jwt.sign(payload, secret)
+      const payload = { client, secret }
+      const apiKey = jwt.sign(payload, process.env.SECRET_JWT_SEED)
 
-      const apiKey = {
-        client: jwtkey,
-        secret
+      const generatedKey = {
+        client,
+        secret,
+        apiKey
       }
-      resolve (apiKey)
+      resolve (generatedKey)
     } else {
       reject()
     }

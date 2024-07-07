@@ -17,6 +17,9 @@ const UsuarioSchema = Schema({
   },
   secret: {
     type: String
+  },
+  client: {
+    type: String
   }
   
 },
