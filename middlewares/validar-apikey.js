@@ -37,7 +37,7 @@ const validarApiKey = async ( req, res = response, next ) => {
     
     return res.status(401).json({
       ok: false,
-      msg: 'token no valido'
+      msg: 'unvalid key'
     });
   }
 
