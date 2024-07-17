@@ -4,7 +4,7 @@ const Usuario = require('../models/Usuario');
 
 const validarApiKey = async ( req, res = response, next ) => {
 
-  const key = req.header('x-api-key');
+  const key = req.header('X-Api-Key');
 
   if( !key ) {
     return res.status(401).json({
@@ -18,8 +18,6 @@ const validarApiKey = async ( req, res = response, next ) => {
     //const dbUser = await Usuario.find
 
     const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED );
-
-    console.log( 'helper:', client, secret )
 
     const user = await Usuario.where({secret: secret})
                               .where({client: client})
