@@ -9,7 +9,7 @@ const validarApiKey = async ( req, res = response, next ) => {
   if( !key ) {
     return res.status(401).json({
       ok: false,
-      msg: 'unauthorized'
+      msg: 'unauthorized: none api key present'
     });
   }
 
@@ -23,14 +23,13 @@ const validarApiKey = async ( req, res = response, next ) => {
                               .where({client: client})
 
     if (user) {
-      console.log( user )
       req.uid = user._id;
       req.name = user.name;
     }
     else {
       return res.status(401).json({
       ok: false,
-      msg: 'unauthorized'
+      msg: 'unauthorized: user not found'
     });
     }
     
