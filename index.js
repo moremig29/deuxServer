@@ -13,12 +13,13 @@ dbConnection();
 app.use( express.static('public') );
 
 //cors comentar localhost y !origin para subir
-const allowURLS = ['https://deuxcreativa.com.ve','https://deuxapp.netlify.app', 'http://localhost:4429']
+const allowURLS = ['https://deuxcreativa.com.ve','https://deuxapp.netlify.app', 'http://localhost:4429', '127.0.0.1:4000']
 const corsOptions = {
   origin: function (origin, callback) {
-    // if(!origin){//for bypassing postman req with  no origin
-    //   return callback(null, true);
-    // }
+    if(!origin){
+      //for bypassing postman req with  no origin
+      return callback(null, true);
+    }
     if (allowURLS.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
@@ -49,6 +50,7 @@ app.use( '/api/inventario', require('./routes/inventario') );
 app.use( '/api/chart', require('./routes/chart') );
 app.use( '/api/precio', require('./routes/precio') );
 app.use( '/api/pedido', require('./routes/pedido') );
+app.use( '/api/apikey', require('./routes/apikey') );
 app.use( '/api/mensaje', require('./routes/mensaje') );
 
 app.listen( process.env.PORT, ( )=> {

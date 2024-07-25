@@ -25,7 +25,4 @@ router.post( '/', [
 //revalidar token
 router.get( '/renew', validarJWT ,renovarToken );
 
-//crear key para acceder al api
-router.get('/genapikey', validarJWT, crearApiKey );
-
 module.exports = router;

@@ -127,48 +127,8 @@ const renovarToken = async ( req, resp = response ) => {
   });
 }
 
-const crearApiKey = async (req, resp = response ) => {
-
-  const uid = req.uid
-  const name = req.name
-
-  const dbUser = await Usuario.findOne( { name } );
-  
-  try {
-    
-    const {client, secret, apiKey} = await generarApiKEY( uid, name )
-
-    const user = {
-      id: dbUser._id,
-      name: dbUser.name,
-      email: dbUser.email,
-      password: dbUser.password,
-      secret: secret,
-      client: client
-    }
-
-    const updateUser = await Usuario.findByIdAndUpdate( user.id, user, { new: true } );
-
-    return resp.status(201).json({
-      ok: true,
-      msg: 'ok',
-      apiKey,
-      user: updateUser
-    });
-
-
-  } catch (error) {
-    return resp.status(500).json({
-      ok: false,
-      msg: 'Comuniquese con el administrador'
-    });
-  }
-
-}
-
 module.exports = {
   crearUsuario,
   loginUsuario,
-  renovarToken, 
-  crearApiKey
+  renovarToken
 }
