@@ -188,14 +188,14 @@ const postCuentaBalanceByMonth = async(req, resp = response ) => {
                                     ])
     
     dbBalance.forEach(element => {
-      if( String(element.transaccion) === tipoTransac[1] ) {
-        if ( String(element.moneda) === moneda[1] ) {
+      if( String(element.transaccion) === tipoTransac[0] ) {
+        if ( String(element.moneda) === moneda[0] ) {
           ingresoDol += element.monto
         } else {
           ingresoBs += element.monto
         }
       } else {
-        if ( String(element.moneda) === moneda[1] ) {
+        if ( String(element.moneda) === moneda[0] ) {
           egresoDol += element.monto
         } else {
           egresoBs += element.monto
