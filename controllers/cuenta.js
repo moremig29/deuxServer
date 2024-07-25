@@ -161,6 +161,71 @@ const getCuentaByType = async ( req, resp = response ) => {
 
 }
 
+const postCuentaBalanceByMonth = async(req, resp = response ) => {
+
+  const uid = req.uid;
+  const selectedMonth = req.body.month;
+
+  const moneda = ['65abf65167eec9111140078f','65abf67267eec91111400791']; // dolar, Bolivar
+  const tipoTransac = ['64da5a45ff830e89b92e70a7','64da5a4dff830e89b92e70a9']; // ingreso, egreso
+
+  let ingresoBs = 0;
+  let ingresoDol = 0;
+  let egresoBs = 0;
+  let egresoDol = 0;
+
+  
+  try {
+      const dbBalance = await Cuenta//.where({ 'user': uid })
+                                    .aggregate([
+                                      {$project: {
+                                        desc: '$desc',
+                                        monto: '$monto',
+                                        moneda: '$moneda',
+                                        transaccion: '$tipoTransac',
+                                        month: {$month: '$fecha'}}},
+                                      {$match: {month: selectedMonth}},
+                                    ])
+    
+    dbBalance.forEach(element => {
+      if( String(element.transaccion) === tipoTransac[1] ) {
+        if ( String(element.moneda) === moneda[1] ) {
+          ingresoDol += element.monto
+        } else {
+          ingresoBs += element.monto
+        }
+      } else {
+        if ( String(element.moneda) === moneda[1] ) {
+          egresoDol += element.monto
+        } else {
+          egresoBs += element.monto
+        }
+      }
+    });
+
+    let balance = {
+      ingresoBs,
+      ingresoDol,
+      egresoBs,
+      egresoDol
+    }
+
+  // generar response
+    return resp.status(200).json({
+      ok: true,
+      msg: 'Balance del mes',
+      balance
+    });
+    
+  } catch (error) {
+
+    return resp.status(500).json({
+      ok: false,
+      msg: 'Sin balance para mostrar'
+    });
+  }
+}
+
 const putCuenta = async ( req, resp = response ) => {
 
   
@@ -218,6 +283,7 @@ module.exports = {
   postCuenta,
   getCuenta,
   getCuentaByType,
+  postCuentaBalanceByMonth,
   putCuenta,
   deleteCuenta
 }
