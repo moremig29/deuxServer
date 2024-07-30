@@ -19,6 +19,8 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     //const dbUser = await Usuario.find
 
+    console.log('inicia el try')
+
     const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED );
 
     console.log( client, secret )
@@ -39,6 +41,8 @@ const validarApiKey = async ( req, res = response, next ) => {
     }
     
   } catch (error) {
+
+    console.error(error)
     
     return res.status(401).json({
       ok: false,
