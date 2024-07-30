@@ -1,6 +1,6 @@
 const { response } = require("express");
 const jwt = require('jsonwebtoken');
-const Usuario = require('../models/Usuario');
+const Apikey = require('../models/Apikey');
 
 const validarApiKey = async ( req, res = response, next ) => {
 
@@ -19,7 +19,7 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED );
 
-    const user = await Usuario.where({secret: secret})
+    const user = await Apikey.where({secret: secret})
                               .where({client: client})
 
     if (user) {
