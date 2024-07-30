@@ -6,6 +6,8 @@ const validarApiKey = async ( req, res = response, next ) => {
 
   const key = req.header('X-Api-Key');
 
+  console.log( key )
+
   if( !key ) {
     return res.status(401).json({
       ok: false,
@@ -19,9 +21,12 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED );
 
+    console.log( client, secret )
+
     const user = await Apikey.where({secret: secret})
                               .where({client: client})
 
+    console.log(user)
     if (user) {
       req.uid = user._id;
       req.name = user.name;
