@@ -7,6 +7,8 @@ const createApiKey = async ( req, resp = response ) => {
 
   const uid = req.uid
   const name = req.name
+
+  //TODO: VAlidate if the user has a created key
   
   try {
     
@@ -41,14 +43,14 @@ const getApikey = async (req, resp = response ) => {
 
   try {
     
-    const DBApikey = await Apikey.where({ user: uid });
+    const [ dbApikey ] = await Apikey.find({ user: uid });
 
-    if( DBApikey.length > 0 ) {
+    if( dbApikey ) {
 
       return resp.status(201).json({
         ok: true,
         msg: 'ok',
-        apiKey: [DBApikey]
+        key: dbApikey
       });
     } else {
       return resp.status(200).json({
