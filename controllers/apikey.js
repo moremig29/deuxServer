@@ -5,8 +5,6 @@ const { generarApiKEY } = require('../helpers/jwt');
 // registrar compra
 const createApiKey = async ( req, resp = response ) => {
 
-  console.log(' inicia la creacion')
-
   const uid = req.uid
   const name = req.name
   
@@ -14,23 +12,18 @@ const createApiKey = async ( req, resp = response ) => {
     
     const key = await generarApiKEY( uid, name )
 
-    console.log(key)
-
     const DBApikey = new Apikey({
       ...key,
       user: uid
     })
-    console.log(DBApikey)
 
     await DBApikey.save();
-
 
     return resp.status(201).json({
       ok: true,
       msg: 'ok',
-      apikey: DBApikey
+      key: DBApikey
     });
-
 
   } catch (error) {
     return resp.status(500).json({
@@ -48,7 +41,7 @@ const getApikey = async (req, resp = response ) => {
 
   try {
     
-    const DBApikey = await Apikey.where({ user: uid });
+    const [ DBApikey ] = await Apikey.where({ user: uid });
 
     if( DBApikey.length > 0 ) {
 
@@ -60,7 +53,7 @@ const getApikey = async (req, resp = response ) => {
     } else {
       return resp.status(200).json({
         ok: true,
-        msg: 'Sin mensajes para mostrar',
+        msg: 'apiKey no configurada',
       });
     }
 
