@@ -25,15 +25,15 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     //console.log( client, secret )
 
-    const user = await Apikey.where({apiKey: key})
+    const bdUser = await Apikey.where({apiKey: key})
 
     // const user = await Apikey.where({secret: secret})
     //                           .where({client: client})
 
-    console.log(user)
+    console.log(bdUser)
     
-    if (user) {
-      req.uid = user._id;
+    if (bdUser) {
+      req.uid = bdUser.user;
     }
     else {
       return res.status(401).json({
