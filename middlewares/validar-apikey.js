@@ -25,7 +25,7 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     //console.log( client, secret )
 
-    const bdUser = await Apikey.where({apiKey: key})
+    const [ bdUser ] = await Apikey.where({apiKey: key})
 
     // const user = await Apikey.where({secret: secret})
     //                           .where({client: client})
