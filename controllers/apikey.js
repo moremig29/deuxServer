@@ -41,14 +41,14 @@ const getApikey = async (req, resp = response ) => {
 
   try {
     
-    const [ DBApikey ] = await Apikey.where({ user: uid });
+    const DBApikey = await Apikey.where({ user: uid });
 
     if( DBApikey.length > 0 ) {
 
       return resp.status(201).json({
         ok: true,
         msg: 'ok',
-        DBApikey
+        apiKey: [DBApikey]
       });
     } else {
       return resp.status(200).json({
