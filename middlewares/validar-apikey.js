@@ -21,17 +21,19 @@ const validarApiKey = async ( req, res = response, next ) => {
 
     console.log('inicia el try')
 
-    const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED );
+    //const { client, secret } = jwt.verify( key, process.env.SECRET_JWT_SEED);
 
-    console.log( client, secret )
+    //console.log( client, secret )
 
-    const user = await Apikey.where({secret: secret})
-                              .where({client: client})
+    const user = await Apikey.where({apiKey: key})
+
+    // const user = await Apikey.where({secret: secret})
+    //                           .where({client: client})
 
     console.log(user)
+    
     if (user) {
       req.uid = user._id;
-      req.name = user.name;
     }
     else {
       return res.status(401).json({
